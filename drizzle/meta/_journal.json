@@ -8,6 +8,20 @@
       "when": 1788419124017,
       "tag": "20260903070524_far_secret_warriors",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788444786619,
+      "tag": "20260903141306_workable_norman_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788444845007,
+      "tag": "20260903141405_whole_norrin_radd",
+      "breakpoints": true
     }
   ]
 }

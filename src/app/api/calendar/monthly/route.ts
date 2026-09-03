@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
             data: null,
         }, { status: 401 });
 
-
         const { searchParams } = new URL(request.url);
         const monthParam = searchParams.get('month'); //0-11
         const yearParam = searchParams.get('year');

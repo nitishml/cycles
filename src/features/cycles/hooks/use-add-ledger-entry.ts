@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AddSevaDTO } from '../types';
+import { LedgerEntryDTO } from '../types';
 
 type ApiResponse = {
     success: boolean;
@@ -9,8 +9,8 @@ type ApiResponse = {
     message?: string | null;
 }
 
-const addSeva = async (formData: AddSevaDTO): Promise<ApiResponse> => {
-    const response = await fetch(`/api/seva`, {
+const addLedgerEntry = async (formData: LedgerEntryDTO): Promise<ApiResponse> => {
+    const response = await fetch(`/api/cycle/ledger-entry`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -25,14 +25,13 @@ const addSeva = async (formData: AddSevaDTO): Promise<ApiResponse> => {
     return response.json();
 };
 
-export const useAddSeva = () => {
+export const useAddLedgerEntry = () => {
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse, Error, AddSevaDTO>({
-        mutationFn: addSeva,
+    return useMutation<ApiResponse, Error, LedgerEntryDTO>({
+        mutationFn: addLedgerEntry,
         onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: ['seva'] });
-            // queryClient.invalidateQueries({ queryKey: ['active-postings'] });
+            queryClient.invalidateQueries({ queryKey: ['cycle'] });
         },
         onError: (error) => {
             console.error('Form submission failed:', error);
@@ -41,6 +40,6 @@ export const useAddSeva = () => {
             if (error.message.includes('4')) return false;
             return failureCount < 2;
         },
-        mutationKey: ['add-seva'],
+        mutationKey: ['ledger-entry'],
     });
 };

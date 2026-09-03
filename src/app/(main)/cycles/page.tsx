@@ -2,7 +2,7 @@ import { Page } from "@/components/layout/page";
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import { getSession } from "@/features/auth/get-session";
-import { ViewCalendar } from "@/features/calendar/components/view-calendar";
+import { CyclesDashboard } from "@/features/cycles/components/dashboard";
 
 export const metadata: Metadata = {
     title: "Cycles",
@@ -16,7 +16,7 @@ export default async function AppPage() {
         <Page.Root>
             <Page.Header title="Cycles" />
             <Page.Main className="max-w-7xl space-y-4">
-                {/* <ViewCalendar /> */}
+                <CyclesDashboard />
             </Page.Main>
         </Page.Root>
     );

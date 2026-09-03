@@ -1,21 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { SevaListItem } from "../types";
-
-type ApiRequest = {
-    sevaId: string
-}
+import { TaskListItem } from "../types";
 
 type ApiResponse = {
     success: boolean;
-    data: SevaListItem | null;
-    message?: string;
+    data: {
+        tasks: TaskListItem[]
+    } | null;
+    message?: string | null;
 }
 
-async function fetchSeva({
-    sevaId,
-}: ApiRequest): Promise<ApiResponse> {
+async function fetchTasks(): Promise<ApiResponse> {
 
-    const response = await fetch(`/api/seva/manage/${sevaId}`, {
+    const response = await fetch(`/api/cycle/tasks`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -31,12 +27,10 @@ async function fetchSeva({
     return response.json();
 }
 
-export function useGetSeva({
-    sevaId,
-}: ApiRequest) {
+export function useGetCycleTasks() {
     return useQuery({
-        queryKey: ['seva', 'manage', sevaId,],
-        queryFn: () => fetchSeva({ sevaId, }),
+        queryKey: ['cycle', 'tasks'],
+        queryFn: () => fetchTasks(),
         staleTime: 1000 * 60 * 15,
         gcTime: 1000 * 60 * 10,
         retry: (failureCount, error) => {

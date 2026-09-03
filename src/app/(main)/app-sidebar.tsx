@@ -43,18 +43,13 @@ const employeeRoutes = [
         url: `/calendar`,
         icon: CalendarDays
     },
-    {
-        title: "Logs",
-        url: `/staff/logs`,
-        icon: Logs
-    },
 ]
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const isMobile = useIsMobile()
     const { setOpen } = useSidebar()
 
-    const route = usePathname().split("/").slice(0, 3).join("/")
+    const route = usePathname().split("/").slice(0, 2).join("/")
     if (isMobile) return (
         <MobileSidebar />
     )

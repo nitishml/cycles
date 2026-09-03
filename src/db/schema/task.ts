@@ -23,9 +23,6 @@ export const task = pgTable("task", {
 },)
 
 export const taskRelations = relations(task, ({ one, many }) => ({
-    // author: one(user, {
-    //     fields: [seva.authorId],
-    //     references: [user.id],
-    // }),
+
 }));
 

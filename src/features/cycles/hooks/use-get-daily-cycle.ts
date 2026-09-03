@@ -1,17 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import { SevaListItem } from "../types";
+import { DailyCycleDTO } from "../types";
+
+type ApiRequest = {
+    day: string;
+}
 
 type ApiResponse = {
     success: boolean;
-    data: {
-        seva: SevaListItem[]
-    } | null;
-    message?: string | null;
+    data: DailyCycleDTO | null;
+    message?: string;
 }
 
-async function fetchSevas(): Promise<ApiResponse> {
-
-    const response = await fetch(`/api/seva`, {
+async function fetchDailyCycle({
+    day
+}: ApiRequest): Promise<ApiResponse> {
+    const params = new URLSearchParams({
+        day: day.toString(),
+    });
+    const response = await fetch(`/api/cycle/daily?${params.toString()}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -27,10 +33,12 @@ async function fetchSevas(): Promise<ApiResponse> {
     return response.json();
 }
 
-export function useGetSevaList() {
+export function useGetDailyCycle({
+    day
+}: ApiRequest) {
     return useQuery({
-        queryKey: ['seva'],
-        queryFn: () => fetchSevas(),
+        queryKey: ['cycle', 'daily', { day }],
+        queryFn: () => fetchDailyCycle({ day }),
         staleTime: 1000 * 60 * 15,
         gcTime: 1000 * 60 * 10,
         retry: (failureCount, error) => {

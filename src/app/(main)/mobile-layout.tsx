@@ -20,7 +20,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { BiDonateBlood } from "react-icons/bi"
-import { Bell, BriefcaseBusiness, Home, LifeBuoy, Logs, RefreshCcwDot, Settings, Sparkles, UserRoundCog } from "lucide-react"
+import { Bell, BriefcaseBusiness, CalendarDays, Home, LifeBuoy, Logs, RefreshCcwDot, Settings, Sparkles, UserRoundCog } from "lucide-react"
 import { MdTempleBuddhist } from "react-icons/md"
 
 const mobileRoutes = [
@@ -53,12 +53,12 @@ const mobileRoutes = [
         url: `/tasks`,
         icon: BriefcaseBusiness
     },
-
     {
-        title: "Logs",
-        url: `/staff/logs`,
-        icon: Logs
+        title: "Calendar",
+        url: `/calendar`,
+        icon: CalendarDays
     },
+
 
 ]
 
