@@ -5,8 +5,8 @@ import { getSession } from "@/features/auth/get-session";
 import { ViewCalendar } from "@/features/calendar/components/view-calendar";
 
 export const metadata: Metadata = {
-    title: "Dashboard",
-    description: "Dashboard",
+    title: "Cycles",
+    description: "Cycles",
 };
 
 export default async function AppPage() {
@@ -14,7 +14,7 @@ export default async function AppPage() {
     if (!session) return redirect('/auth/login');
     return (
         <Page.Root>
-            <Page.Header title="Dashboard" />
+            <Page.Header title="Cycles" />
             <Page.Main className="max-w-7xl space-y-4">
                 {/* <ViewCalendar /> */}
             </Page.Main>

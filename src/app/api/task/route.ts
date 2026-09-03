@@ -1,11 +1,10 @@
 import { db } from "@/db/drizzle";
-import { seva } from "@/db/schema";
+import { task } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import z from "zod";
-import { validateRole } from "@/features/auth/role-guard";
 import { getSession } from "@/features/auth/get-session";
-import { addSevaApiSchema } from "@/features/seva/types";
+import { addTaskApiSchema } from "@/features/tasks/types";
 
 export async function GET() {
     try {
@@ -16,21 +15,14 @@ export async function GET() {
             data: null,
         }, { status: 401 });
 
-        const { authorized } = await validateRole(["DIRECTOR", "STAFF"]);
-        if (!authorized) return NextResponse.json({
-            success: false,
-            message: "Forbidden",
-            data: null,
-        }, { status: 403 });
-
         const data = await db
             .select()
-            .from(seva)
-            .where(eq(seva.isActive, true))
+            .from(task)
+            .where(eq(task.isActive, true))
 
         if (!data) return NextResponse.json({
             success: false,
-            message: "No Seva",
+            message: "No Tasks",
             data: null,
         }, { status: 404 });
 
@@ -38,14 +30,14 @@ export async function GET() {
             {
                 success: true,
                 data: {
-                    seva: data
+                    tasks: data
                 },
             },
             { status: 200 }
         );
 
     } catch (error) {
-        console.error('Error fetching seva list: ', error);
+        console.error('Error fetching task list: ', error);
         return NextResponse.json(
             { error: "Internal server error" },
             { status: 500 }
@@ -62,15 +54,8 @@ export async function POST(request: NextRequest) {
             data: null,
         }, { status: 401 });
 
-        const { authorized } = await validateRole(["DIRECTOR", "STAFF"]);
-        if (!authorized) return NextResponse.json({
-            success: false,
-            message: "Forbidden",
-            data: null,
-        }, { status: 403 });
-
         const body = await request.json();
-        const validatedData = addSevaApiSchema.safeParse(body);
+        const validatedData = addTaskApiSchema.safeParse(body);
 
         if (!validatedData.success) return NextResponse.json({
             success: false,
@@ -78,39 +63,38 @@ export async function POST(request: NextRequest) {
             data: null,
         }, { status: 400 });
 
-        const { title, description, schedule } = validatedData.data
+        const { title, description } = validatedData.data
 
-        const [newSeva] = await db
-            .insert(seva)
+        const [newTask] = await db
+            .insert(task)
             .values({
                 title,
                 description,
-                schedule,
                 isActive: true,
             })
             .returning({
-                id: seva.id
+                id: task.id
             })
 
-        if (!newSeva) return NextResponse.json({
+        if (!newTask) return NextResponse.json({
             success: false,
-            message: "Signup Failed",
+            message: "Creation Failed",
             data: null,
         }, { status: 404 });
 
         return NextResponse.json(
             {
                 success: true,
-                message: "Seva Created Successfuly",
+                message: "Task Created Successfuly",
                 data: {
-                    id: newSeva.id,
+                    id: newTask.id,
                 },
             },
             { status: 200 }
         );
 
     } catch (error) {
-        console.error('Error creating seva: ', error);
+        console.error('Error creating task: ', error);
         return NextResponse.json(
             { error: "Internal server error" },
             { status: 500 }
