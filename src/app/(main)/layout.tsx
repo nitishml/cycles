@@ -1,11 +1,9 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { cookies } from "next/headers"
-import { UnauthorizedPage } from "@/components/unauthorized-page";
 import { AppSidebar } from "./app-sidebar";
 import { MobileFooter } from "./mobile-layout";
 import { redirect } from "next/navigation";
 import { getSession } from "@/features/auth/get-session";
-import { validateRole } from "@/features/auth/role-guard";
 
 export default async function StaffLayout({
     children,

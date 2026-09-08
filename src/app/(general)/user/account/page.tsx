@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { Separator } from "@/components/ui/separator";
-import { roleRedirector } from "@/features/auth/role-guard";
 import { Page } from "@/components/layout/page";
 import { getSession } from "@/features/auth/get-session";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
@@ -14,14 +13,7 @@ export const metadata: Metadata = {
 
 export default async function AppPage() {
     const session = await getSession();
-
     if (!session) return redirect("/auth/login")
-
-    const { role } = await roleRedirector(session.userId)
-
-    if (!role) return redirect("/auth/login")
-
-
     return (
         <Page.Root>
             <Page.Main className="max-w-7xl space-y-8">

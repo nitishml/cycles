@@ -6,7 +6,7 @@ import { getSession } from "@/features/auth/get-session";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: Promise<{ day: Date }> }
+    { params }: { params: Promise<{ day: string }> }
 ) {
     try {
 
