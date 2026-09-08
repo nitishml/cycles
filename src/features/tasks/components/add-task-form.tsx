@@ -22,16 +22,14 @@ import {
     Input
 } from "@/components/ui/input"
 import { QueryLoading } from "@/components/query-loaders"
-import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet, FieldTitle } from "@/components/ui/field"
+import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, } from "@/components/ui/field"
 import { useRouter } from "next/navigation"
-import {
-    RadioGroup,
-    RadioGroupItem,
-} from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 import { InPageHeader } from "@/components/layout/in-page-header"
 import { addTaskFormSchema } from "../types"
 import { useAddTask } from "../hooks/use-add-task"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { taskFrequenceEnum } from "@/db/schema"
 
 
 export function AddTaskForm() {
@@ -43,7 +41,7 @@ export function AddTaskForm() {
     const form = useForm<z.infer<typeof addTaskFormSchema>>({
         resolver: zodResolver(addTaskFormSchema) as any,
         defaultValues: {
-
+            frequency: "DAILY"
         }
     })
 
@@ -53,6 +51,7 @@ export function AddTaskForm() {
         mutation.mutate({
             title: values.title,
             description: values.description,
+            frequency: values.frequency,
         }, {
             onSuccess: (data) => {
                 if (data.success && data.data) {
@@ -123,28 +122,45 @@ export function AddTaskForm() {
                         />
 
                     </div>
-                    {/* <div className="w-full grid grid-cols-1  gap-2">
+                    <div className="w-full grid grid-cols-1 gap-2 max-w-sm">
                         <Controller
-                            name="schedule"
+                            name="frequency"
                             control={form.control}
                             render={({ field, fieldState }) => (
-                                <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel htmlFor="schedule">
-                                        Schedule
-                                    </FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id="schedule"
-                                        aria-invalid={fieldState.invalid}
-                                    />
-                                    {fieldState.invalid && (
-                                        <FieldError errors={[fieldState.error]} />
-                                    )}
+                                <Field orientation="responsive" data-invalid={fieldState.invalid}>
+                                    <FieldContent>
+                                        <FieldLabel htmlFor="form-rhf-select-language">
+                                            Frequency
+                                        </FieldLabel>
+
+                                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                    </FieldContent>
+                                    <Select
+                                        name={field.name}
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                    >
+                                        <SelectTrigger
+                                            id="form-rhf-select-language"
+                                            aria-invalid={fieldState.invalid}
+                                            className="min-w-[120px]"
+                                        >
+                                            <SelectValue placeholder="Select" />
+                                        </SelectTrigger>
+                                        <SelectContent position="item-aligned">
+
+                                            {taskFrequenceEnum.enumValues.map((i) => (
+                                                <SelectItem key={i} value={i}>{i}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                 </Field>
                             )}
                         />
 
-                    </div> */}
+
+                    </div>
+
                     <Button
                         size={'lg'}
                         type="submit"

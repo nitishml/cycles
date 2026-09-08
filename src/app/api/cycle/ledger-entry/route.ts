@@ -23,14 +23,13 @@ export async function POST(request: NextRequest) {
             data: null,
         }, { status: 400 });
 
-        const { taskId, day, count, remarks } = validatedData.data
+        const { taskId, day, remarks } = validatedData.data
 
         const [newEntry] = await db
             .insert(taskLedger)
             .values({
                 taskId,
                 day,
-                count: count,
                 remarks
             })
             .returning({
@@ -81,12 +80,12 @@ export async function PUT(request: NextRequest) {
             data: null,
         }, { status: 400 });
 
-        const { id, count, remarks } = validatedData.data
+        const { id, remarks } = validatedData.data
 
         await db
             .update(taskLedger)
             .set({
-                count: count,
+                // count: count,
                 remarks
             })
             .where(eq(taskLedger.id, id))

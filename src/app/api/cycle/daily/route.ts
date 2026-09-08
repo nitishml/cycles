@@ -1,7 +1,7 @@
 import { db } from "@/db/drizzle";
 import { task, taskLedger } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
+import { asc, count, eq, and } from "drizzle-orm";
 import { getSession } from "@/features/auth/get-session";
 
 export async function GET(request: NextRequest) {
@@ -22,28 +22,47 @@ export async function GET(request: NextRequest) {
             data: null,
         }, { status: 400 });
 
-        const data = await db
+        // const data = await db
+        //     .select({
+        //         taskTitle: task.title,
+        //         taskId: task.id,
+        //         // count: taskLedger.count,
+        //         id: taskLedger.id
+        //     })
+        //     .from(taskLedger)
+        //     .where(eq(taskLedger.day, new Date(dayParam)))
+        //     .innerJoin(task, eq(taskLedger.taskId, task.id))
+        //     .groupBy(task.id, task.title, taskLedger.id)
+
+
+        // const taskList = await db
+        //     .select({
+        //         id: task.id,
+        //         title: task.title
+        //     })
+        //     .from(task)
+        //     .where(eq(task.isActive, true))
+        //     .orderBy(asc(task.displayOrder))
+
+        const result = await db
             .select({
-                taskTitle: task.title,
                 taskId: task.id,
-                count: taskLedger.count,
-                id: taskLedger.id
-            })
-            .from(taskLedger)
-            .where(eq(taskLedger.day, new Date(dayParam)))
-            .innerJoin(task, eq(taskLedger.taskId, task.id))
-            .groupBy(task.id, task.title, taskLedger.count, taskLedger.id)
-
-
-        const taskList = await db
-            .select({
-                id: task.id,
-                title: task.title
+                taskTitle: task.title,
+                count: count(taskLedger.id),
             })
             .from(task)
+            .leftJoin(
+                taskLedger,
+                and(
+                    eq(taskLedger.taskId, task.id),
+                    eq(taskLedger.day, new Date(dayParam))
+                )
+            )
             .where(eq(task.isActive, true))
+            .groupBy(task.id, task.title)
+            .orderBy(asc(task.displayOrder));
 
-        if (!data) return NextResponse.json({
+        if (!result) return NextResponse.json({
             success: false,
             message: "No Tasks",
             data: null,
@@ -53,8 +72,7 @@ export async function GET(request: NextRequest) {
             {
                 success: true,
                 data: {
-                    today: data,
-                    taskList
+                    result,
                 },
             },
             { status: 200 }

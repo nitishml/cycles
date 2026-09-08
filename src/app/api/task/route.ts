@@ -2,7 +2,6 @@ import { db } from "@/db/drizzle";
 import { task } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-import z from "zod";
 import { getSession } from "@/features/auth/get-session";
 import { addTaskApiSchema } from "@/features/tasks/types";
 
@@ -63,7 +62,7 @@ export async function POST(request: NextRequest) {
             data: null,
         }, { status: 400 });
 
-        const { title, description } = validatedData.data
+        const { title, description, frequency } = validatedData.data
 
         const [newTask] = await db
             .insert(task)
@@ -71,6 +70,7 @@ export async function POST(request: NextRequest) {
                 title,
                 description,
                 isActive: true,
+                frequency
             })
             .returning({
                 id: task.id

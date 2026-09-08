@@ -14,3 +14,12 @@ export const paymentModeEnum = pgEnum('payment_mode_enum', [
     "DD",
     "CRYPTO"
 ])
+
+export const taskFrequenceEnum = pgEnum('task_frequency_enum', [
+    'DAILY',
+    'OTHER',
+    'WEEKLY',
+    'MONTHLY',
+    'YEARLY',
+    'SPECIAL',
+]);

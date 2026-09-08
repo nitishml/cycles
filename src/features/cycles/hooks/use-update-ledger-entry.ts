@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AddLedgerEntryDTO } from '../types';
+import { UpdateLedgerEntryDTO } from '../types';
 
 type ApiResponse = {
     success: boolean;
@@ -9,9 +9,9 @@ type ApiResponse = {
     message?: string | null;
 }
 
-const addLedgerEntry = async (formData: AddLedgerEntryDTO): Promise<ApiResponse> => {
+const updateLedgerEntry = async (formData: UpdateLedgerEntryDTO): Promise<ApiResponse> => {
     const response = await fetch(`/api/cycle/ledger-entry`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -25,11 +25,11 @@ const addLedgerEntry = async (formData: AddLedgerEntryDTO): Promise<ApiResponse>
     return response.json();
 };
 
-export const useAddLedgerEntry = () => {
+export const useUpdateLedgerEntry = () => {
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse, Error, AddLedgerEntryDTO>({
-        mutationFn: addLedgerEntry,
+    return useMutation<ApiResponse, Error, UpdateLedgerEntryDTO>({
+        mutationFn: updateLedgerEntry,
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['cycle'] });
         },

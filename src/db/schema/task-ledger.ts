@@ -8,7 +8,7 @@ export const taskLedger = pgTable("task_ledger", {
     taskId: text("task_id").notNull().references(() => task.id),
     day: date('day', { mode: 'date' }).references(() => calendar.day),
 
-    count: integer("count").notNull().default(0),
+    // count: integer("count").notNull().default(0),
     remarks: text("remarks"),
 
     createdAt: timestamp('created_at', { mode: 'date', withTimezone: true })

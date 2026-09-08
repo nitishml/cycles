@@ -1,6 +1,7 @@
 import { createId } from "@/lib/nanoid-gen";
 import { relations } from "drizzle-orm";
 import { boolean, integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { taskFrequenceEnum } from "./enums";
 
 export const task = pgTable("task", {
     id: text("id").primaryKey().$defaultFn(() => createId()),
@@ -9,6 +10,7 @@ export const task = pgTable("task", {
     isPinned: boolean("is_pinned").default(false).notNull(),
     isOneTime: boolean("is_one_time").default(false).notNull(),
 
+    frequency: taskFrequenceEnum("frequence").notNull().default("DAILY"),
     displayOrder: integer("display_order").notNull().default(-1),
     title: text("title").notNull(),
     description: text("description").notNull(),

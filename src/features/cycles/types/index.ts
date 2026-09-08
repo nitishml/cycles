@@ -6,35 +6,37 @@ export type TaskListItem = {
 }
 
 export type DailyCycleDTO = {
-    today: {
-        id: string;
-        taskTitle: string;
-        taskId: string;
-        count: number;
-    }[];
-    taskList: {
-        id: string;
-        title: string;
-    }[];
+    taskId: string;
+    taskTitle: string;
+    count: number;
 }
 
-export type LedgerEntryDTO = {
+export type AddLedgerEntryDTO = {
     taskId: string;
-    day: Date;
-    count: number;
+    day: string;
     remarks?: string | null;
 }
 
 export const addLedgerEntryFormSchema = z.object({
     day: z.coerce.date(),
-    count: z.coerce.number(),
     remarks: z.string().optional(),
 })
 
 export const addLedgerEntryApiSchema = z.object({
     taskId: z.string(),
     day: z.coerce.date(),
-    count: z.coerce.number(),
+    remarks: z.string().optional(),
+})
+
+export type UpdateLedgerEntryDTO = {
+    id: string;
+    taskId: string;
+    day: Date;
+    remarks?: string | null;
+}
+
+export const updateLedgerFormSchema = z.object({
+    day: z.coerce.date(),
     remarks: z.string().optional(),
 })
 
@@ -42,6 +44,5 @@ export const updateLedgerApiSchema = z.object({
     id: z.string(),
     taskId: z.string(),
     day: z.coerce.date(),
-    count: z.coerce.number(),
     remarks: z.string().optional(),
 })

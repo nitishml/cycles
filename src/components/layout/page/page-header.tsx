@@ -14,6 +14,7 @@ import { Separator } from '@/components/ui/separator';
 // import { UserMenu } from '@/features/auth/components/UserMenu';
 import { useEffect, useState } from 'react';
 import { UserMenu } from '@/features/auth/components/UserMenu';
+import { format } from 'date-fns';
 
 type Props = {
 	title: string;
@@ -132,6 +133,7 @@ export default function PageHeaderStaff({ title }: Props) {
 					{title}
 				</div>
 				<div className='flex items-center justify-end gap-2'>
+					{format(new Date(), "dd/MM/yy")}
 					<DropdownMenu modal={false} >
 						<DropdownMenuTrigger asChild>
 							<Button variant='link' className='hidden md:flex items-center justify-center' size={'icon'} >

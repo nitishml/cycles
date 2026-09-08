@@ -33,8 +33,8 @@ export async function GET(
                 isActive: task.isActive,
                 isPinned: task.isPinned,
                 isOneTime: task.isOneTime,
-                displayorder: task.displayOrder
-
+                displayorder: task.displayOrder,
+                frequency: task.frequency,
             })
             .from(task)
             .where(eq(task.id, taskId))
@@ -100,6 +100,7 @@ export async function PUT(
                 description: values.description,
                 isPinned: values.isPinned,
                 isOneTime: values.isOneTime,
+                frequency: values.frequency,
             })
             .where(eq(task.id, taskId))
 

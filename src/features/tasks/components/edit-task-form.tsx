@@ -14,6 +14,8 @@ import { editTaskFormSchema, TaskDetailsDTO } from "../types";
 import { InPageHeader } from "@/components/layout/in-page-header";
 import { useEditTask } from "../hooks/use-edit-task";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { taskFrequenceEnum } from "@/db/schema";
 
 type Props = {
     task: TaskDetailsDTO;
@@ -30,7 +32,8 @@ export const EditTaskForm = ({ task }: Props) => {
             title: task.title,
             description: task.description,
             isPinned: task.isPinned,
-            isOneTime: task.isOneTime
+            isOneTime: task.isOneTime,
+            frequency: task.frequency,
         }
     })
 
@@ -182,6 +185,44 @@ export const EditTaskForm = ({ task }: Props) => {
                                 </div>
                             )}
                         />
+                    </div>
+                    <div className="w-full grid grid-cols-1 gap-2 max-w-sm">
+                        <Controller
+                            name="frequency"
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <Field orientation="responsive" data-invalid={fieldState.invalid}>
+                                    <FieldContent>
+                                        <FieldLabel htmlFor="form-rhf-select-language">
+                                            Frequency
+                                        </FieldLabel>
+
+                                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                    </FieldContent>
+                                    <Select
+                                        name={field.name}
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                    >
+                                        <SelectTrigger
+                                            id="form-rhf-select-language"
+                                            aria-invalid={fieldState.invalid}
+                                            className="min-w-[120px]"
+                                        >
+                                            <SelectValue placeholder="Select" />
+                                        </SelectTrigger>
+                                        <SelectContent position="item-aligned">
+
+                                            {taskFrequenceEnum.enumValues.map((i) => (
+                                                <SelectItem key={i} value={i}>{i}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </Field>
+                            )}
+                        />
+
+
                     </div>
                     <Button
                         size={'lg'}

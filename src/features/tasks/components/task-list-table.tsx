@@ -62,6 +62,13 @@ export function TaskListTable({ tasks }: Props) {
             ),
         },
         {
+            accessorKey: "frequency",
+            header: "Frequency",
+            cell: ({ row }) => (
+                <span className="">{row.original.frequency}</span>
+            ),
+        },
+        {
             id: "actions",
             header: "",
             cell: ({ row }) => (
