@@ -83,12 +83,12 @@
     "screenshots": [
         {
             "src": "/pwa/screenshots/mobile.png",
-            "sizes": "375x656",
+            "sizes": "380x670",
             "type": "image/png"
         },
         {
             "src": "/pwa/screenshots/desktop.png",
-            "sizes": "1640x784",
+            "sizes": "1900x905",
             "type": "image/png",
             "form_factor": "wide"
         }
