@@ -34,7 +34,6 @@ export const ProfileDataStaff = () => {
                 <DataDisplay title={'Full Name'} value={data.name} />
                 <DataDisplay title={'Mobile'} value={data.mobile} />
                 <DataDisplay title={'E-Mail'} value={data.email} />
-                <DataDisplay title={'Role'} value={data.role} />
                 <DataDisplay title={'State'} value={'Karnataka'} />
 
             </div>
