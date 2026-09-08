@@ -1,0 +1,333 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*  
+  primary: "#E4DDCA"
+  secondary: "#022222"
+*/
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-6: var(--chart-6);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-custom-primary-100: oklch(0.9796 0.0057 84.57);
+  --color-custom-primary-200: oklch(0.9585 0.0098 87.47);
+  --color-custom-primary-300: oklch(0.9399 0.0165 91.56);
+  --color-custom-primary-400: oklch(0.9187 0.0207 91.59);
+  --color-custom-primary-500: oklch(0.898 0.0266 90.11);
+  --color-custom-primary-600: oklch(0.7603 0.0217 91.63);
+  --color-custom-primary-700: oklch(0.6166 0.0183 91.64);
+  --color-custom-primary-800: oklch(0.461 0.0118 87.53);
+  --color-custom-primary-900: oklch(0.2938 0.0077 84.59);
+
+  --color-custom-secondary-100: oklch(0.8615 0.0076 197.01);
+  --color-custom-secondary-200: oklch(0.7181 0.0147 196.83);
+  --color-custom-secondary-300: oklch(0.5642 0.0224 196.54);
+  --color-custom-secondary-400: oklch(0.4037 0.0304 196.01);
+  --color-custom-secondary-500: oklch(0.2291 0.037 194.88);
+  --color-custom-secondary-600: oklch(0.2024 0.0319 194.93);
+  --color-custom-secondary-700: oklch(0.174 0.0279 194.9);
+  --color-custom-secondary-800: oklch(0.1495 0.023 194.97);
+  --color-custom-secondary-900: oklch(0.1164 0.0199 194.77);
+
+  --color-custom-accent-100: oklch(0.9796 0.0057 84.57);
+  --color-custom-accent-200: oklch(0.9585 0.0098 87.47);
+  --color-custom-accent-300: oklch(0.9399 0.0165 91.56);
+  --color-custom-accent-400: oklch(0.9187 0.0207 91.59);
+  --color-custom-accent-500: oklch(0.898 0.0266 90.11);
+  --color-custom-accent-600: oklch(0.7603 0.0217 91.63);
+  --color-custom-accent-700: oklch(0.6166 0.0183 91.64);
+  --color-custom-accent-800: oklch(0.461 0.0118 87.53);
+  --color-custom-accent-900: oklch(0.2938 0.0077 84.59);
+  --animate-line-shadow: line-shadow 15s linear infinite;
+
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-6: oklch(71.5% 0.143 215.221);
+  --sidebar: oklch(0.2291 0.037 194.88);
+  --sidebar-foreground: oklch(0.898 0.0266 90.11);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-6: oklch(71.5% 0.143 215.221);
+  --sidebar: oklch(0.2291 0.037 194.88);
+  --sidebar-foreground: oklch(0.898 0.0266 90.11);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Hide scrollbar for all browsers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* from circular progress @ dice-ui */
+@theme {
+  --animate-spin-around: spin-around 0.8s linear infinite;
+
+  @keyframes spin-around {
+    0% {
+      transform: rotate(-90deg);
+    }
+
+    100% {
+      transform: rotate(270deg);
+    }
+  }
+}
+
+/* globals.css or styles.css */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+/* Tiptap editor styles */
+/* Tiptap editor styles */
+.ProseMirror {
+  outline: none;
+}
+
+.ProseMirror>* {
+  margin: 0;
+}
+
+.ProseMirror p {
+  margin: 0.5rem 0;
+}
+
+.ProseMirror ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.ProseMirror li {
+  margin: 0.25rem 0;
+}
+
+.ProseMirror li>p {
+  margin: 0;
+}
+
+.ProseMirror strong {
+  font-weight: bold;
+}
+
+.ProseMirror em {
+  font-style: italic;
+}
+
+.ProseMirror a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3 {
+  font-weight: bold;
+  margin: 1rem 0 0.5rem;
+}
+
+.ProseMirror h1 {
+  font-size: 2rem;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+}
+
+.ProseMirror h3 {
+  font-size: 1.25rem;
+}
+
+@layer components {
+  .button-group {
+    @apply flex gap-2;
+  }
+
+  .expand-btn {
+    @apply w-12 transition-all duration-300 ease-in-out flex items-center gap-2 overflow-hidden;
+  }
+
+  /* Default: First button is expanded */
+  .button-group:not(:has(.expand-btn:hover)) .expand-btn:first-child {
+    @apply w-32;
+  }
+
+  /* On hover: Hovered button expands */
+  .expand-btn:hover {
+    @apply w-32;
+  }
+
+  .button-text {
+    @apply whitespace-nowrap overflow-hidden max-w-0 opacity-0 transition-all duration-300 ease-in-out;
+  }
+
+  /* Default: First button shows text */
+  .button-group:not(:has(.expand-btn:hover)) .expand-btn:first-child .button-text {
+    @apply max-w-xs opacity-100;
+  }
+
+  /* On hover: Hovered button shows text */
+  .expand-btn:hover .button-text {
+    @apply max-w-xs opacity-100;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+
+  }
+
+}
+
+/* Fallback for older browsers */
+html {
+  overflow-y: scroll;
+}
+
+/* Modern browsers - overrides the above with a cleaner solution */
+@supports (scrollbar-gutter: stable) {
+  html {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+}
+
+/* Add this to your global layout or index.css file */
+html body[data-scroll-locked] {
+  overflow: auto !important;
+  margin-right: 0px !important;
+  padding-right: 0px !important;
+}

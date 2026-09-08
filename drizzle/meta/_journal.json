@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1788419124017,
+      "tag": "20260903070524_far_secret_warriors",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788444786619,
+      "tag": "20260903141306_workable_norman_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788444845007,
+      "tag": "20260903141405_whole_norrin_radd",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1788876143259,
+      "tag": "20260908140223_optimal_wolf_cub",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "task_ledger" ALTER COLUMN "count" SET DATA TYPE integer;
