@@ -41,12 +41,12 @@
     ],
     "shortcuts": [
         {
-            "name": "Attendance",
-            "url": "/office/attendance",
-            "description": "Office Attendance Panel",
+            "name": "Cycles",
+            "url": "/cycles",
+            "description": "Progress for Tasks",
             "icons": [
                 {
-                    "src": "/pwa/icons/settings.png",
+                    "src": "/pwa/icons/cycles.png",
                     "sizes": "96x96",
                     "type": "image/png",
                     "purpose": "any"
@@ -54,8 +54,21 @@
             ]
         },
         {
-            "name": "SIS",
-            "url": "/office/sis",
+            "name": "Calendar",
+            "url": "/calendar",
+            "description": "Personal Calendar",
+            "icons": [
+                {
+                    "src": "/pwa/icons/calendar-days.png",
+                    "sizes": "96x96",
+                    "type": "image/png",
+                    "purpose": "any"
+                }
+            ]
+        },
+        {
+            "name": "Tasks",
+            "url": "/tasks",
             "description": "Student Information System",
             "icons": [
                 {
