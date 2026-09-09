@@ -20,13 +20,18 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { MobileSidebar } from "./mobile-layout"
 import { usePathname } from "next/navigation"
 
-import { BriefcaseBusiness, CalendarDays, Home, LifeBuoy, Logs, RefreshCcwDot } from "lucide-react"
+import { BriefcaseBusiness, CalendarDays, Home, LifeBuoy, Logs, RefreshCcwDot, NotebookPen } from "lucide-react"
 
 const employeeRoutes = [
     {
         title: "Dashboard",
         url: `/dashboard`,
         icon: Home
+    },
+    {
+        title: "Entries",
+        url: `/cycles`,
+        icon: NotebookPen
     },
     {
         title: "Tasks",

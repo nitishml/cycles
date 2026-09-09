@@ -11,26 +11,6 @@ export type DailyCycleDTO = {
     count: number;
 }
 
-export type AddRoutineLedgerEntryDTO = {
-    routineId: string;
-    day: string;
-    remarks?: string | null;
-    completedAt: Date;
-}
-
-export const addRoutineLedgerEntryFormSchema = z.object({
-    completedAt: z.coerce.date(),
-    remarks: z.string().optional(),
-})
-
-export const addRoutineLedgerEntryApiSchema = z.object({
-    routineId: z.string(),
-    day: z.coerce.date(),
-    remarks: z.string().optional(),
-    completedAt: z.coerce.date(),
-})
-
-
 export type AddLedgerEntryDTO = {
     taskId: string;
     day: string;

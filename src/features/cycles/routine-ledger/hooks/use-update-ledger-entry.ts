@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AddRoutineDTO } from '../types';
+import { UpdateLedgerEntryDTO } from '../types';
 
 type ApiResponse = {
     success: boolean;
@@ -9,9 +9,9 @@ type ApiResponse = {
     message?: string | null;
 }
 
-const addRoutine = async (formData: AddRoutineDTO): Promise<ApiResponse> => {
-    const response = await fetch(`/api/routine`, {
-        method: 'POST',
+const updateLedgerEntry = async (formData: UpdateLedgerEntryDTO): Promise<ApiResponse> => {
+    const response = await fetch(`/api/cycle/ledger-entry/routine`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -25,14 +25,13 @@ const addRoutine = async (formData: AddRoutineDTO): Promise<ApiResponse> => {
     return response.json();
 };
 
-export const useAddRoutine = () => {
+export const useUpdateLedgerEntry = () => {
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse, Error, AddRoutineDTO>({
-        mutationFn: addRoutine,
+    return useMutation<ApiResponse, Error, UpdateLedgerEntryDTO>({
+        mutationFn: updateLedgerEntry,
         onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: ['routine'] });
-            queryClient.invalidateQueries({ queryKey: ['cycle', 'routines'] });
+            queryClient.invalidateQueries({ queryKey: ['cycle'] });
         },
         onError: (error) => {
             console.error('Form submission failed:', error);
@@ -41,6 +40,6 @@ export const useAddRoutine = () => {
             if (error.message.includes('4')) return false;
             return failureCount < 2;
         },
-        mutationKey: ['add-routine'],
+        mutationKey: ['ledger-entry'],
     });
 };

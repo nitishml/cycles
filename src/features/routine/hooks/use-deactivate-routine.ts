@@ -34,6 +34,9 @@ export const useDeactivateRoutine = () => {
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['routine'] });
             queryClient.invalidateQueries({ queryKey: ['routine', 'manage', data.data?.id!] });
+
+            queryClient.invalidateQueries({ queryKey: ['cycle', 'routines'] });
+
         },
         onError: (error) => {
             console.error('Form submission failed:', error);

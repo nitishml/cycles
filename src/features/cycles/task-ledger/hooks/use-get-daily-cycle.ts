@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { LedgerItems } from "../types";
+import { DailyCycleDTO } from "../types";
 
 type ApiRequest = {
     day: string;
@@ -7,15 +7,19 @@ type ApiRequest = {
 
 type ApiResponse = {
     success: boolean;
-    data: LedgerItems | null;
+    data: {
+        result: DailyCycleDTO[]
+    } | null;
     message?: string;
 }
 
-async function fetchDailyLedger({
+async function fetchDailyCycle({
     day
 }: ApiRequest): Promise<ApiResponse> {
-
-    const response = await fetch(`/api/dashboard/daily/${day}`, {
+    const params = new URLSearchParams({
+        day: day.toString(),
+    });
+    const response = await fetch(`/api/cycle/daily/task?${params.toString()}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -31,12 +35,12 @@ async function fetchDailyLedger({
     return response.json();
 }
 
-export function useGetDailyLedger({
+export function useGetDailyCycle({
     day
 }: ApiRequest) {
     return useQuery({
-        queryKey: ['ledger', 'daily', { day }],
-        queryFn: () => fetchDailyLedger({ day }),
+        queryKey: ['cycle', 'daily', { day }],
+        queryFn: () => fetchDailyCycle({ day }),
         staleTime: 1000 * 60 * 15,
         gcTime: 1000 * 60 * 10,
         retry: (failureCount, error) => {

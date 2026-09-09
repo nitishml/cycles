@@ -1,21 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { LedgerItems } from "../types";
-
-type ApiRequest = {
-    day: string;
-}
+import { RoutineListItem } from "../types";
 
 type ApiResponse = {
     success: boolean;
-    data: LedgerItems | null;
-    message?: string;
+    data: {
+        routines: RoutineListItem[]
+    } | null;
+    message?: string | null;
 }
 
-async function fetchDailyLedger({
-    day
-}: ApiRequest): Promise<ApiResponse> {
+async function fetchRoutines(): Promise<ApiResponse> {
 
-    const response = await fetch(`/api/dashboard/daily/${day}`, {
+    const response = await fetch(`/api/cycle/routines`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -31,12 +27,10 @@ async function fetchDailyLedger({
     return response.json();
 }
 
-export function useGetDailyLedger({
-    day
-}: ApiRequest) {
+export function useGetCycleRoutines() {
     return useQuery({
-        queryKey: ['ledger', 'daily', { day }],
-        queryFn: () => fetchDailyLedger({ day }),
+        queryKey: ['cycle', 'routines'],
+        queryFn: () => fetchRoutines(),
         staleTime: 1000 * 60 * 15,
         gcTime: 1000 * 60 * 10,
         retry: (failureCount, error) => {
