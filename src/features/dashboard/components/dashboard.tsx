@@ -27,7 +27,7 @@ export const Dashboard = () => {
     // const result = countByTaskList(data.today, data.taskList);
 
 
-    console.log("Result: ", data)
+    // console.log("Result: ", data)
     return (
         <div className="w-full space-y-8">
 
@@ -38,43 +38,69 @@ export const Dashboard = () => {
                         <span>{format(new Date(), "EEEE, do MMMM yyyy")}</span>
                     </div>
                 </div>
-                <div className="max-w-sm border rounded-md shadow w-full">
-                    <Table className="w-full">
-                        <TableCaption>Today's Task Ledger</TableCaption>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-[100px]">Time</TableHead>
-                                <TableHead>Task</TableHead>
-                                {/* <TableHead>Frequency</TableHead> */}
+                <div className="w-full flex flex-col md:flex-row items-start justify-center gap-4">
+                    <div className="flex-1 border rounded-md shadow w-full">
+                        <Table className="w-full">
+                            <TableCaption>Today's Task Ledger</TableCaption>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-[100px]">Time</TableHead>
+                                    <TableHead>Task</TableHead>
+                                    {/* <TableHead>Frequency</TableHead> */}
 
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {data.result.map((i) => (
-                                <TableRow
-                                    key={i.id}
-                                    className="">
-                                    <TableCell className="font-medium">{format(i.createdAt, "hh:mm aa")}</TableCell>
-                                    <TableCell>{i.taskTitle}</TableCell>
-                                    {/* <TableCell>{i.frequency}</TableCell> */}
                                 </TableRow>
-                            ))}
-                            {/* <TableRow>
-                                <TableCell className="font-medium">INV001</TableCell>
-                                <TableCell>Paid</TableCell>
-                                <TableCell>Credit Card</TableCell>
-                                <TableCell className="text-right">$250.00</TableCell>
-                            </TableRow> */}
-                        </TableBody>
-                    </Table>
-                </div>
-                {data.result.map((i) => (
-                    <div
-                        key={i.id}
-                        className="">
-
+                            </TableHeader>
+                            <TableBody>
+                                {data.tasks.map((i) => (
+                                    <TableRow
+                                        key={i.id}
+                                        className="">
+                                        <TableCell className="font-medium">{format(i.completedAt, "hh:mm aa")}</TableCell>
+                                        <TableCell>{i.title}</TableCell>
+                                        {/* <TableCell>{i.frequency}</TableCell> */}
+                                    </TableRow>
+                                ))}
+                                {/* <TableRow>
+                                    <TableCell className="font-medium">INV001</TableCell>
+                                    <TableCell>Paid</TableCell>
+                                    <TableCell>Credit Card</TableCell>
+                                    <TableCell className="text-right">$250.00</TableCell>
+                                </TableRow> */}
+                            </TableBody>
+                        </Table>
                     </div>
-                ))}
+                    <div className="max-w-sm border rounded-md shadow w-full">
+                        <Table className="w-full">
+                            <TableCaption>Today's Routine Ledger</TableCaption>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-[100px]">Time</TableHead>
+                                    <TableHead>Routine</TableHead>
+                                    {/* <TableHead>Frequency</TableHead> */}
+
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {data.routines.map((i) => (
+                                    <TableRow
+                                        key={i.id}
+                                        className="">
+                                        <TableCell className="font-medium">{format(i.completedAt, "hh:mm aa")}</TableCell>
+                                        <TableCell>{i.title}</TableCell>
+                                        {/* <TableCell>{i.frequency}</TableCell> */}
+                                    </TableRow>
+                                ))}
+                                {/* <TableRow>
+                                    <TableCell className="font-medium">INV001</TableCell>
+                                    <TableCell>Paid</TableCell>
+                                    <TableCell>Credit Card</TableCell>
+                                    <TableCell className="text-right">$250.00</TableCell>
+                                </TableRow> */}
+                            </TableBody>
+                        </Table>
+                    </div>
+                </div>
+
             </div>
         </div>
     )

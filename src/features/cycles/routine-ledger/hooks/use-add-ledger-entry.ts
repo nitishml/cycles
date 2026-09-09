@@ -10,7 +10,7 @@ type ApiResponse = {
 }
 
 const addLedgerEntry = async (formData: AddLedgerEntryDTO): Promise<ApiResponse> => {
-    const response = await fetch(`/api/cycle/ledger-entry`, {
+    const response = await fetch(`/api/cycle/ledger-entry/routine`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -32,6 +32,7 @@ export const useAddLedgerEntry = () => {
         mutationFn: addLedgerEntry,
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['cycle'] });
+            queryClient.invalidateQueries({ queryKey: ['ledger', 'daily'] });
         },
         onError: (error) => {
             console.error('Form submission failed:', error);

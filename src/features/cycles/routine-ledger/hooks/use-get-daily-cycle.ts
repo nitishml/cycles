@@ -19,7 +19,7 @@ async function fetchDailyCycle({
     const params = new URLSearchParams({
         day: day.toString(),
     });
-    const response = await fetch(`/api/cycle/daily?${params.toString()}`, {
+    const response = await fetch(`/api/cycle/daily/routine?${params.toString()}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -39,7 +39,7 @@ export function useGetDailyCycle({
     day
 }: ApiRequest) {
     return useQuery({
-        queryKey: ['cycle', 'daily', { day }],
+        queryKey: ['cycle', 'daily', 'routine', { day }],
         queryFn: () => fetchDailyCycle({ day }),
         staleTime: 1000 * 60 * 15,
         gcTime: 1000 * 60 * 10,

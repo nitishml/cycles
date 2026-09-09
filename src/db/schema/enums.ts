@@ -23,3 +23,12 @@ export const taskFrequenceEnum = pgEnum('task_frequency_enum', [
     'YEARLY',
     'SPECIAL',
 ]);
+
+export const routineFrequenceEnum = pgEnum('routine_frequency_enum', [
+    'DAILY',
+    'OTHER',
+    'WEEKLY',
+    'MONTHLY',
+    'YEARLY',
+    'SPECIAL',
+]);

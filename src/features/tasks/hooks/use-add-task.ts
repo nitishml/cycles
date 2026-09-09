@@ -32,7 +32,7 @@ export const useAddTask = () => {
         mutationFn: addTask,
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['task'] });
-            // queryClient.invalidateQueries({ queryKey: ['active-postings'] });
+            queryClient.invalidateQueries({ queryKey: ['cycle'] });
         },
         onError: (error) => {
             console.error('Form submission failed:', error);

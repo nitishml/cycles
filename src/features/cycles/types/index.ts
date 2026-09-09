@@ -11,14 +11,35 @@ export type DailyCycleDTO = {
     count: number;
 }
 
+export type AddRoutineLedgerEntryDTO = {
+    routineId: string;
+    day: string;
+    remarks?: string | null;
+    completedAt: Date;
+}
+
+export const addRoutineLedgerEntryFormSchema = z.object({
+    completedAt: z.coerce.date(),
+    remarks: z.string().optional(),
+})
+
+export const addRoutineLedgerEntryApiSchema = z.object({
+    routineId: z.string(),
+    day: z.coerce.date(),
+    remarks: z.string().optional(),
+    completedAt: z.coerce.date(),
+})
+
+
 export type AddLedgerEntryDTO = {
     taskId: string;
     day: string;
     remarks?: string | null;
+    completedAt: Date;
 }
 
 export const addLedgerEntryFormSchema = z.object({
-    day: z.coerce.date(),
+    completedAt: z.coerce.date(),
     remarks: z.string().optional(),
 })
 
@@ -26,6 +47,7 @@ export const addLedgerEntryApiSchema = z.object({
     taskId: z.string(),
     day: z.coerce.date(),
     remarks: z.string().optional(),
+    completedAt: z.coerce.date(),
 })
 
 export type UpdateLedgerEntryDTO = {
@@ -33,11 +55,13 @@ export type UpdateLedgerEntryDTO = {
     taskId: string;
     day: Date;
     remarks?: string | null;
+    completedAt: Date;
 }
 
 export const updateLedgerFormSchema = z.object({
     day: z.coerce.date(),
     remarks: z.string().optional(),
+    completedAt: z.coerce.date(),
 })
 
 export const updateLedgerApiSchema = z.object({
@@ -45,4 +69,5 @@ export const updateLedgerApiSchema = z.object({
     taskId: z.string(),
     day: z.coerce.date(),
     remarks: z.string().optional(),
+    completedAt: z.coerce.date(),
 })

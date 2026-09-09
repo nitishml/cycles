@@ -1,10 +1,20 @@
 import { taskFrequenceEnum } from "@/db/schema";
 
 export type LedgerItems = {
-    id: string;
-    taskId: string;
-    remarks: string;
-    taskTitle: string;
-    createdAt: Date;
-    frequency: typeof taskFrequenceEnum.enumValues[number];
+    tasks: {
+        id: string;
+        taskId: string;
+        remarks: string;
+        title: string;
+        completedAt: Date;
+        frequency: typeof taskFrequenceEnum.enumValues[number];
+    }[];
+    routines: {
+        id: string;
+        taskId: string;
+        remarks: string;
+        title: string;
+        completedAt: Date;
+        frequency: typeof taskFrequenceEnum.enumValues[number];
+    }[];
 }

@@ -7,9 +7,7 @@ type ApiRequest = {
 
 type ApiResponse = {
     success: boolean;
-    data: {
-        result: LedgerItems[]
-    } | null;
+    data: LedgerItems | null;
     message?: string;
 }
 

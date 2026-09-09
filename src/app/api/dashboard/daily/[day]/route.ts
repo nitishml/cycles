@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle";
-import { task, taskLedger } from "@/db/schema";
+import { routine, routineLedger, task, taskLedger } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 import { desc, eq, } from "drizzle-orm";
 import { getSession } from "@/features/auth/get-session";
@@ -33,22 +33,36 @@ export async function GET(
         //     data: null,
         // }, { status: 400 });
 
-        const result = await db
+        const routines = await db
+            .select({
+                id: routineLedger.id,
+                routineId: routineLedger.id,
+                remarks: routineLedger.id,
+                title: routine.title,
+                completedAt: routineLedger.completedAt,
+                frequency: routine.frequency,
+            })
+            .from(routineLedger)
+            .where(eq(routineLedger.day, new Date(day)))
+            .innerJoin(routine, eq(routineLedger.routineId, routine.id))
+            .orderBy(desc(routineLedger.completedAt,))
+
+        const tasks = await db
             .select({
                 id: taskLedger.id,
                 taskId: taskLedger.id,
                 remarks: taskLedger.id,
-                taskTitle: task.title,
-                createdAt: taskLedger.createdAt,
+                title: task.title,
+                completedAt: taskLedger.completedAt,
                 frequency: task.frequency,
             })
             .from(taskLedger)
             .where(eq(taskLedger.day, new Date(day)))
             .innerJoin(task, eq(taskLedger.taskId, task.id))
-            .orderBy(desc(taskLedger.createdAt,))
+            .orderBy(desc(taskLedger.completedAt,))
 
 
-        if (!result) return NextResponse.json({
+        if (!tasks || !routines) return NextResponse.json({
             success: false,
             message: "No Tasks",
             data: null,
@@ -58,7 +72,8 @@ export async function GET(
             {
                 success: true,
                 data: {
-                    result,
+                    tasks,
+                    routines,
                 },
             },
             { status: 200 }
