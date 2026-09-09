@@ -32,7 +32,7 @@ export const ViewTaskDetails = ({ taskId }: Props) => {
 
     return (
         <div className="w-full space-y-8">
-            <div className="w-full min-h-32 h-full grid gap-10 grid-cols-3 mx-auto">
+            <div className="w-full min-h-32 h-full grid gap-2 md:gap-10 grid-cols-3 mx-auto">
                 <Card
                     className='w-full group rounded-2xl bg-muted p-2 overflow-hidden group-hover:black relative z-10 flex flex-col h-full gap-0 py-6 cursor-pointer'
                     onClick={() => setShowEdit(!showEdit)}>
@@ -57,7 +57,11 @@ export const ViewTaskDetails = ({ taskId }: Props) => {
                         </CardContent>
                     </Card>
                 </Link>
-                {data.isActive ? (<DeactivateTaskCard taskId={taskId} />) : (<ActivateTaskCard taskId={taskId} />)}
+                {data.isActive ? (
+                    <DeactivateTaskCard taskId={taskId} />
+                ) : (
+                    <ActivateTaskCard taskId={taskId} />
+                )}
             </div>
             <div className="w-full flex flex-col md:flex-row items-center justify-between gap-2  ">
                 {showEdit ? (

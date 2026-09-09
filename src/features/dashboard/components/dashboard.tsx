@@ -69,7 +69,7 @@ export const Dashboard = () => {
                             </TableBody>
                         </Table>
                     </div>
-                    <div className="max-w-sm border rounded-md shadow w-full">
+                    <div className="md:max-w-sm  border rounded-md shadow w-full">
                         <Table className="w-full">
                             <TableCaption>Today's Routine Ledger</TableCaption>
                             <TableHeader>
