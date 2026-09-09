@@ -1,0 +1,1 @@
+ALTER TABLE "task_ledger" ADD COLUMN "deadline" timestamp with time zone NOT NULL;

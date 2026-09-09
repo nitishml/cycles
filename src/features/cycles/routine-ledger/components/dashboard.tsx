@@ -27,7 +27,7 @@ export const RoutineLedgerDashboard = ({ date }: Props) => {
 
     // console.log(data.result)
     return (
-        <div className="w-full space-y-8">
+        <div className="md:max-w-sm w-full space-y-8">
             <InPageHeader label="Routine Ledger" />
 
 

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AddLedgerEntryDTO } from '../types';
+import { ScheduleTaskDTO } from '../types';
 
 type ApiResponse = {
     success: boolean;
@@ -9,8 +9,8 @@ type ApiResponse = {
     message?: string | null;
 }
 
-const addLedgerEntry = async (formData: AddLedgerEntryDTO): Promise<ApiResponse> => {
-    const response = await fetch(`/api/cycle/ledger-entry`, {
+const scheduleTask = async (formData: ScheduleTaskDTO): Promise<ApiResponse> => {
+    const response = await fetch(`/api/cycle/tasks/schedule`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -25,11 +25,11 @@ const addLedgerEntry = async (formData: AddLedgerEntryDTO): Promise<ApiResponse>
     return response.json();
 };
 
-export const useAddLedgerEntry = () => {
+export const useScheduleTask = () => {
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse, Error, AddLedgerEntryDTO>({
-        mutationFn: addLedgerEntry,
+    return useMutation<ApiResponse, Error, ScheduleTaskDTO>({
+        mutationFn: scheduleTask,
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['cycle'] });
             queryClient.invalidateQueries({ queryKey: ['ledger', 'daily'] });
@@ -41,6 +41,6 @@ export const useAddLedgerEntry = () => {
             if (error.message.includes('4')) return false;
             return failureCount < 2;
         },
-        mutationKey: ['ledger-entry'],
+        mutationKey: ['schedule-task'],
     });
 };
