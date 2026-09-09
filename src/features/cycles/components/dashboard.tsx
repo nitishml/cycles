@@ -14,6 +14,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { useState } from "react"
+import { AddLedgerEntryForm } from "./add-ledger-entry-form"
 
 export const CyclesDashboard = () => {
     const [date, setDate] = useState<Date>(new Date())
@@ -31,7 +32,7 @@ export const CyclesDashboard = () => {
     // const result = countByTaskList(data.today, data.taskList);
 
 
-    console.log(data.result)
+    // console.log(data.result)
     return (
         <div className="w-full space-y-8">
 
@@ -62,13 +63,28 @@ export const CyclesDashboard = () => {
 
             <div className="flex flex-col items-center justify-center gap-4">
                 {data.result.map((i) => (
-                    <NewTask
-                        key={i.taskId}
-                        title={i.taskTitle}
-                        taskId={i.taskId}
-                        date={format(date, "yyyy-MM-dd")}
-                        count={i.count}
-                    />
+                    // <NewTask
+                    //     key={i.taskId}
+                    //     title={i.taskTitle}
+                    //     taskId={i.taskId}
+                    //     date={date}
+                    //     count={i.count}
+                    // />
+                    <div key={i.taskId} className="w-full max-w-sm flex items-center justify-between border rounded-sm px-4 py-2">
+                        {i.taskTitle}
+
+                        <div className="flex items-center justify-end gap-4">
+                            <AddLedgerEntryForm
+                                key={i.taskId}
+                                title={i.taskTitle}
+                                taskId={i.taskId}
+                                date={date}
+                                count={i.count}
+                            />
+                            {i.count}
+                        </div>
+
+                    </div>
                 ))}
             </div>
 
@@ -85,7 +101,7 @@ function NewTask({
 }: {
     title: string;
     taskId: string;
-    date: string;
+    date: Date;
     count: number;
 }) {
     const mutation = useAddLedgerEntry()
@@ -93,7 +109,8 @@ function NewTask({
     function onSubmit() {
         mutation.mutate({
             taskId: taskId,
-            day: date,
+            day: format(date, "yyyy-MM-dd"),
+            completedAt: date,
             // count: 1
         }, {
             onSuccess: (data) => {

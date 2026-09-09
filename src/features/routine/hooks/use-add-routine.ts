@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AddTaskDTO } from '../types';
+import { AddRoutineDTO } from '../types';
 
 type ApiResponse = {
     success: boolean;
@@ -9,8 +9,8 @@ type ApiResponse = {
     message?: string | null;
 }
 
-const addTask = async (formData: AddTaskDTO): Promise<ApiResponse> => {
-    const response = await fetch(`/api/task`, {
+const addRoutine = async (formData: AddRoutineDTO): Promise<ApiResponse> => {
+    const response = await fetch(`/api/routine`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -25,13 +25,13 @@ const addTask = async (formData: AddTaskDTO): Promise<ApiResponse> => {
     return response.json();
 };
 
-export const useAddTask = () => {
+export const useAddRoutine = () => {
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse, Error, AddTaskDTO>({
-        mutationFn: addTask,
+    return useMutation<ApiResponse, Error, AddRoutineDTO>({
+        mutationFn: addRoutine,
         onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: ['task'] });
+            queryClient.invalidateQueries({ queryKey: ['routine'] });
             queryClient.invalidateQueries({ queryKey: ['cycle'] });
         },
         onError: (error) => {
@@ -41,6 +41,6 @@ export const useAddTask = () => {
             if (error.message.includes('4')) return false;
             return failureCount < 2;
         },
-        mutationKey: ['add-task'],
+        mutationKey: ['add-routine'],
     });
 };

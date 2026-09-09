@@ -5,6 +5,6 @@ export type LedgerItems = {
     taskId: string;
     remarks: string;
     taskTitle: string;
-    createdAt: Date;
+    completedAt: Date;
     frequency: typeof taskFrequenceEnum.enumValues[number];
 }

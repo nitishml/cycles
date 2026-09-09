@@ -1,0 +1,1 @@
+ALTER TABLE "task_ledger" ADD COLUMN "completed_at" timestamp with time zone DEFAULT now() NOT NULL;

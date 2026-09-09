@@ -49,9 +49,9 @@ const mobileRoutes = [
     //third row
 
     {
-        title: "Tasks",
-        url: `/tasks`,
-        icon: BriefcaseBusiness
+        title: "Routines",
+        url: `/routines`,
+        icon: RefreshCcwDot
     },
     {
         title: "Calendar",

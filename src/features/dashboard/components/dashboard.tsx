@@ -27,7 +27,7 @@ export const Dashboard = () => {
     // const result = countByTaskList(data.today, data.taskList);
 
 
-    console.log("Result: ", data)
+    // console.log("Result: ", data)
     return (
         <div className="w-full space-y-8">
 
@@ -54,7 +54,7 @@ export const Dashboard = () => {
                                 <TableRow
                                     key={i.id}
                                     className="">
-                                    <TableCell className="font-medium">{format(i.createdAt, "hh:mm aa")}</TableCell>
+                                    <TableCell className="font-medium">{format(i.completedAt, "hh:mm aa")}</TableCell>
                                     <TableCell>{i.taskTitle}</TableCell>
                                     {/* <TableCell>{i.frequency}</TableCell> */}
                                 </TableRow>

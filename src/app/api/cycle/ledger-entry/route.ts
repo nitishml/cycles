@@ -23,14 +23,17 @@ export async function POST(request: NextRequest) {
             data: null,
         }, { status: 400 });
 
-        const { taskId, day, remarks } = validatedData.data
+        const { taskId, day, remarks, completedAt } = validatedData.data
+
+        // console.log("at API: ", validatedData.data)
 
         const [newEntry] = await db
             .insert(taskLedger)
             .values({
                 taskId,
                 day,
-                remarks
+                remarks,
+                completedAt,
             })
             .returning({
                 id: task.id

@@ -32,6 +32,7 @@ export const useAddLedgerEntry = () => {
         mutationFn: addLedgerEntry,
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['cycle'] });
+            queryClient.invalidateQueries({ queryKey: ['ledger', 'daily'] });
         },
         onError: (error) => {
             console.error('Form submission failed:', error);

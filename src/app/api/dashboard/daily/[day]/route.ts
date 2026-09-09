@@ -39,13 +39,13 @@ export async function GET(
                 taskId: taskLedger.id,
                 remarks: taskLedger.id,
                 taskTitle: task.title,
-                createdAt: taskLedger.createdAt,
+                completedAt: taskLedger.completedAt,
                 frequency: task.frequency,
             })
             .from(taskLedger)
             .where(eq(taskLedger.day, new Date(day)))
             .innerJoin(task, eq(taskLedger.taskId, task.id))
-            .orderBy(desc(taskLedger.createdAt,))
+            .orderBy(desc(taskLedger.completedAt,))
 
 
         if (!result) return NextResponse.json({

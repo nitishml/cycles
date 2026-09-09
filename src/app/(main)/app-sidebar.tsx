@@ -34,8 +34,8 @@ const employeeRoutes = [
         icon: BriefcaseBusiness
     },
     {
-        title: "Cycles",
-        url: `/cycles`,
+        title: "Routines",
+        url: `/routines`,
         icon: RefreshCcwDot
     },
     {
