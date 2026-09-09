@@ -4,10 +4,8 @@ export type LedgerItems = {
     tasks: {
         id: string;
         taskId: string;
-        remarks: string;
         title: string;
-        completedAt: Date;
-        frequency: typeof taskFrequenceEnum.enumValues[number];
+        deadline: Date
     }[];
     routines: {
         id: string;

@@ -1,7 +1,7 @@
 import { db } from "@/db/drizzle";
 import { routine, routineLedger, task, taskLedger } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
-import { desc, eq, } from "drizzle-orm";
+import { and, desc, eq, } from "drizzle-orm";
 import { getSession } from "@/features/auth/get-session";
 
 export async function GET(
@@ -50,16 +50,17 @@ export async function GET(
         const tasks = await db
             .select({
                 id: taskLedger.id,
-                taskId: taskLedger.id,
-                remarks: taskLedger.id,
+                taskId: task.id,
                 title: task.title,
-                completedAt: taskLedger.completedAt,
-                frequency: task.frequency,
+                deadline: taskLedger.deadline,
             })
             .from(taskLedger)
-            .where(eq(taskLedger.day, new Date(day)))
+            .where(and(
+                eq(taskLedger.day, new Date(day)),
+                eq(taskLedger.status, "OPEN")
+            ))
             .innerJoin(task, eq(taskLedger.taskId, task.id))
-            .orderBy(desc(taskLedger.completedAt,))
+            .orderBy(desc(taskLedger.deadline))
 
 
         if (!tasks || !routines) return NextResponse.json({

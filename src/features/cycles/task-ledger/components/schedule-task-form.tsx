@@ -14,15 +14,13 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet, FieldTitle } from "@/components/ui/field"
-import { InPageHeader } from "@/components/layout/in-page-header";
+import { Field, FieldError, FieldGroup, FieldLabel, } from "@/components/ui/field"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
-import { AlarmClockPlus, BadgePlus, CalendarIcon, ChevronDownIcon, Clock, Hash, Trash2 } from "lucide-react";
-import { useAddLedgerEntry } from "../hooks/use-add-ledger-entry";
+import { AlarmClockPlus, CalendarIcon, Clock, } from "lucide-react";
 import { scheduleTaskFormSchema } from "../types";
 import { Textarea } from "@/components/ui/textarea";
 import { useScheduleTask } from "../hooks/use-schedule-task";

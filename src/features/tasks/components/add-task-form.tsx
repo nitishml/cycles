@@ -41,7 +41,7 @@ export function AddTaskForm() {
     const form = useForm<z.infer<typeof addTaskFormSchema>>({
         resolver: zodResolver(addTaskFormSchema) as any,
         defaultValues: {
-            frequency: "DAILY"
+            // frequency: "DAILY"
         }
     })
 
@@ -51,7 +51,7 @@ export function AddTaskForm() {
         mutation.mutate({
             title: values.title,
             description: values.description,
-            frequency: values.frequency,
+            // frequency: values.frequency,
         }, {
             onSuccess: (data) => {
                 if (data.success && data.data) {
@@ -122,7 +122,7 @@ export function AddTaskForm() {
                         />
 
                     </div>
-                    <div className="w-full grid grid-cols-1 gap-2 max-w-sm">
+                    {/* <div className="w-full grid grid-cols-1 gap-2 max-w-sm">
                         <Controller
                             name="frequency"
                             control={form.control}
@@ -159,7 +159,7 @@ export function AddTaskForm() {
                         />
 
 
-                    </div>
+                    </div> */}
 
                     <Button
                         size={'lg'}
