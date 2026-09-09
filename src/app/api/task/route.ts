@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
             data: null,
         }, { status: 400 });
 
-        const { title, description, frequency } = validatedData.data
+        const { title, description } = validatedData.data
 
         const [newTask] = await db
             .insert(task)
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
                 title,
                 description,
                 isActive: true,
-                frequency
+                // frequency
             })
             .returning({
                 id: task.id

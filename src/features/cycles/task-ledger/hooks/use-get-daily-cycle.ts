@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { DailyCycleDTO } from "../types";
+import { DailyTaskStatusDTO } from "../types";
 
 type ApiRequest = {
     day: string;
@@ -8,7 +8,7 @@ type ApiRequest = {
 type ApiResponse = {
     success: boolean;
     data: {
-        result: DailyCycleDTO[]
+        result: DailyTaskStatusDTO[]
     } | null;
     message?: string;
 }
@@ -39,7 +39,7 @@ export function useGetDailyCycle({
     day
 }: ApiRequest) {
     return useQuery({
-        queryKey: ['cycle', 'daily', { day }],
+        queryKey: ['cycle', 'daily', 'tasks', { day }],
         queryFn: () => fetchDailyCycle({ day }),
         staleTime: 1000 * 60 * 15,
         gcTime: 1000 * 60 * 10,

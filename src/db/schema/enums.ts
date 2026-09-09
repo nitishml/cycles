@@ -15,6 +15,15 @@ export const paymentModeEnum = pgEnum('payment_mode_enum', [
     "CRYPTO"
 ])
 
+export const routineFrequenceEnum = pgEnum('routine_frequency_enum', [
+    'DAILY',
+    'OTHER',
+    'WEEKLY',
+    'MONTHLY',
+    'YEARLY',
+    'SPECIAL',
+]);
+
 export const taskFrequenceEnum = pgEnum('task_frequency_enum', [
     'DAILY',
     'OTHER',
@@ -24,11 +33,17 @@ export const taskFrequenceEnum = pgEnum('task_frequency_enum', [
     'SPECIAL',
 ]);
 
-export const routineFrequenceEnum = pgEnum('routine_frequency_enum', [
-    'DAILY',
-    'OTHER',
-    'WEEKLY',
-    'MONTHLY',
-    'YEARLY',
-    'SPECIAL',
+export const taskStatusEnum = pgEnum('task_status_enum', [
+    'DRAFT',
+    'OPEN',
+    'COMPLETE',
+    'PARTIAL',
+]);
+
+export const taskTagsEnum = pgEnum('task_tags_enum', [
+    'EXPENSE',
+    'INCOME',
+    'WORK',
+    'CARE',
+    'SOCIAL'
 ]);

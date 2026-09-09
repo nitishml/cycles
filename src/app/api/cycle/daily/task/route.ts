@@ -22,26 +22,21 @@ export async function GET(request: NextRequest) {
             data: null,
         }, { status: 400 });
 
-
-
-
         const result = await db
             .select({
+                id: taskLedger.id,
                 taskId: task.id,
-                taskTitle: task.title,
-                count: count(taskLedger.id),
+                title: task.title,
+                description: task.description,
+                deadline: taskLedger.deadline,
+                status: taskLedger.status,
+                completedAt: taskLedger.completedAt,
+                remarks: taskLedger.remarks,
             })
             .from(task)
-            .leftJoin(
-                taskLedger,
-                and(
-                    eq(taskLedger.taskId, task.id),
-                    eq(taskLedger.day, new Date(dayParam))
-                )
-            )
-            .where(eq(task.isActive, true))
-            .groupBy(task.id, task.title)
-            .orderBy(asc(task.displayOrder));
+            .innerJoin(taskLedger, eq(taskLedger.taskId, task.id))
+            .where(eq(taskLedger.day, new Date(dayParam)))
+            .orderBy(asc(taskLedger.deadline));
 
         if (!result) return NextResponse.json({
             success: false,

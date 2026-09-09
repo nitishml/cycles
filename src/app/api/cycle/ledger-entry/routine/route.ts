@@ -3,7 +3,7 @@ import { routine, routineLedger } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { getSession } from "@/features/auth/get-session";
-import { addRoutineLedgerEntryApiSchema, updateLedgerApiSchema } from "@/features/cycles/types";
+import { addLedgerEntryApiSchema, updateLedgerApiSchema } from "@/features/cycles/routine-ledger/types";
 
 export async function POST(request: NextRequest) {
     try {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
         }, { status: 401 });
 
         const body = await request.json();
-        const validatedData = addRoutineLedgerEntryApiSchema.safeParse(body);
+        const validatedData = addLedgerEntryApiSchema.safeParse(body);
 
         if (!validatedData.success) return NextResponse.json({
             success: false,
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
             {
                 success: true,
-                message: "Task Ledger Entry Created Successfuly",
+                message: "Routine Ledger Entry Created Successfuly",
                 data: {
                     id: newEntry.id,
                 },
@@ -96,7 +96,7 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json(
             {
                 success: true,
-                message: "Task Ledger Entry Updated Successfuly",
+                message: "Routine Ledger Entry Updated Successfuly",
                 data: {
                     id: id,
                 },

@@ -23,19 +23,19 @@ export type AddTaskDTO = {
     title: string;
     description: string;
     schedule?: string | null;
-    frequency: typeof taskFrequenceEnum.enumValues[number];
+    // frequency: typeof taskFrequenceEnum.enumValues[number];
 }
 
 export const addTaskFormSchema = z.object({
     title: z.string().min(1, "Title is required").max(100),
     description: z.string().min(1, "description cannot be empty"),
-    frequency: z.enum(taskFrequenceEnum.enumValues),
+    // frequency: z.enum(taskFrequenceEnum.enumValues),
 });
 
 export const addTaskApiSchema = z.object({
     title: z.string().min(1, "Title is required").max(100),
     description: z.string().min(1, "description cannot be empty"),
-    frequency: z.enum(taskFrequenceEnum.enumValues),
+    // frequency: z.enum(taskFrequenceEnum.enumValues),
 });
 
 export type EditTaskDTO = {

@@ -1,33 +1,49 @@
+import { taskStatusEnum } from "@/db/schema";
 import z from "zod";
 
-export type TaskListItem = {
+export type DailyTaskStatusDTO = {
     id: string;
+    taskId: string;
     title: string;
+    description: string;
+    deadline: Date;
+    status: typeof taskStatusEnum.enumValues[number];
+    completedAt: Date | null;
+    remarks: string | null;
 }
 
-export type DailyCycleDTO = {
+export type ScheduleTaskDTO = {
     taskId: string;
-    taskTitle: string;
-    count: number;
+    deadline: Date;
+    remarks?: string | null;
 }
 
-export type AddLedgerEntryDTO = {
-    taskId: string;
-    day: string;
+export const scheduleTaskFormSchema = z.object({
+    deadline: z.coerce.date(),
+    remarks: z.string().optional(),
+})
+
+export const scheduleTaskApiSchema = z.object({
+    taskId: z.string(),
+    deadline: z.coerce.date(),
+    remarks: z.string().optional(),
+})
+
+export type CompleteTaskDTO = {
+    id: string;
     remarks?: string | null;
     completedAt: Date;
 }
 
-export const addLedgerEntryFormSchema = z.object({
+export const completeTaskFormSchema = z.object({
     completedAt: z.coerce.date(),
     remarks: z.string().optional(),
 })
 
-export const addLedgerEntryApiSchema = z.object({
-    taskId: z.string(),
-    day: z.coerce.date(),
-    remarks: z.string().optional(),
+export const completeTaskApiSchema = z.object({
+    id: z.string(),
     completedAt: z.coerce.date(),
+    remarks: z.string().optional(),
 })
 
 export type UpdateLedgerEntryDTO = {

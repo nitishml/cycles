@@ -18,6 +18,7 @@ import { ArrowUpDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Ed
 import Link from "next/link"
 import { TaskListItem } from "../types"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ScheduleTaskDialog } from "@/features/cycles/task-ledger/components/schedule-task-form"
 
 interface Props {
     tasks: TaskListItem[];
@@ -81,14 +82,12 @@ export function TaskListTable({ tasks }: Props) {
                             View
                         </Link>
                     </Button>
-                    <Button variant="view_item" size="sm" className="" asChild>
-                        <Link
-                            href={`/tasks/manage/${row.original.id}/cycles`}
-                            prefetch={false}>
-                            <RefreshCcwDot className="w-4 h-4" />
-                            Cycles
-                        </Link>
-                    </Button>
+
+                    <ScheduleTaskDialog
+                        taskId={row.original.id}
+                        title={row.original.title}
+                        description={row.original.description}
+                    />
                 </div>
             ),
         },

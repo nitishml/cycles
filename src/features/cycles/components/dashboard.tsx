@@ -26,7 +26,7 @@ export const CyclesDashboard = () => {
     return (
         <div className="w-full space-y-8">
 
-            <Field className="max-w-96 w-full mx-auto">
+            <Field className="w-[300px] mx-auto">
                 <FieldLabel htmlFor="date-picker-simple">Choose Date</FieldLabel>
                 <Popover>
                     <PopoverTrigger asChild>
@@ -38,7 +38,7 @@ export const CyclesDashboard = () => {
                             {date ? format(date, "PPP") : <span>Set Starting Date</span>}
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="min-w-[300px] w-full p-0" align="start">
                         <Calendar
                             mode="single"
                             selected={date}
@@ -46,12 +46,13 @@ export const CyclesDashboard = () => {
                             defaultMonth={date}
                             captionLayout="dropdown"
                             required
+                            className="w-full"
                         />
                     </PopoverContent>
                 </Popover>
             </Field>
 
-            <div className="w-full grid grid-cols-1 md:grid-cols-2">
+            <div className="w-full flex flex-col md:flex-row items-start justify-center gap-8">
                 <RoutineLedgerDashboard date={date} />
                 <TaskLedgerDashboard date={date} />
             </div>

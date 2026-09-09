@@ -1,14 +1,16 @@
 import { createId } from "@/lib/nanoid-gen";
 import { relations } from "drizzle-orm";
-import { date, integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
-import { task, calendar } from ".";
+import { date, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { task, calendar, taskStatusEnum } from ".";
 
 export const taskLedger = pgTable("task_ledger", {
     id: text("id").primaryKey().$defaultFn(() => createId()),
     taskId: text("task_id").notNull().references(() => task.id),
     day: date('day', { mode: 'date' }).references(() => calendar.day),
 
-    completedAt: timestamp('completed_at', { mode: 'date', withTimezone: true }).notNull().defaultNow(),
+    deadline: timestamp('deadline', { mode: 'date', withTimezone: true }).notNull(),
+    completedAt: timestamp('completed_at', { mode: 'date', withTimezone: true }),
+    status: taskStatusEnum("status").notNull().default("OPEN"),
     remarks: text("remarks"),
 
     createdAt: timestamp('created_at', { mode: 'date', withTimezone: true })

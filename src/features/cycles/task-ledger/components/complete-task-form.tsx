@@ -14,49 +14,47 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet, FieldTitle } from "@/components/ui/field"
-import { InPageHeader } from "@/components/layout/in-page-header";
+import { Field, FieldError, FieldGroup, FieldLabel, } from "@/components/ui/field"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
-import { BadgePlus, CalendarIcon, ChevronDownIcon, Clock, Hash, Trash2 } from "lucide-react";
-import { useAddLedgerEntry } from "../hooks/use-add-ledger-entry";
-import { addLedgerEntryFormSchema } from "../types";
+import { BadgePlus, CalendarIcon, CircleCheckBig, Clock, } from "lucide-react";
+import { completeTaskFormSchema } from "../types";
 import { Textarea } from "@/components/ui/textarea";
+import { useCompleteTask } from "../hooks/use-complete-task";
 
 type Props = {
+    id: string;
     title: string;
-    taskId: string;
-    date: Date;
-    count: number;
+    description: string;
+    deadline: Date;
 }
-export const AddLedgerEntryForm = ({
+export const CompleteTaskForm = ({
+    id,
     title,
-    taskId,
-    date,
-    count,
+    description,
+    deadline
 }: Props) => {
-    const mutation = useAddLedgerEntry()
+    const mutation = useCompleteTask()
     // const removeMutatiion = useRemoveTransaction()
 
     const [isLoading, setLoading] = useState(false)
 
-    const form = useForm<z.infer<typeof addLedgerEntryFormSchema>>({
-        resolver: zodResolver(addLedgerEntryFormSchema) as any,
+    const form = useForm<z.infer<typeof completeTaskFormSchema>>({
+        resolver: zodResolver(completeTaskFormSchema) as any,
         defaultValues: {
-            completedAt: date
+            completedAt: new Date()
         }
     })
 
-    function onSubmit(values: z.infer<typeof addLedgerEntryFormSchema>) {
+    function onSubmit(values: z.infer<typeof completeTaskFormSchema>) {
         setLoading(true)
 
         // console.log("at form submit", values)
         mutation.mutate({
-            taskId: taskId,
-            day: format(date, "yyyy-MM-dd"),
+            id,
             completedAt: values.completedAt,
         }, {
             onSuccess: (data) => {
@@ -77,60 +75,23 @@ export const AddLedgerEntryForm = ({
         })
     }
 
-    // function onRemoveClick(transactionId: string) {
-    //     removeMutatiion.mutate({
-    //         transactionId,
-    //     }, {
-    //         onSuccess: (data) => {
-    //             if (data.success && data.data) {
-    //                 toast.success("Transaction Removed from Account")
-    //                 // router.push(`/${redirectRouter}/management-finance/receipts/manage/${data.data.txnId}?std=${studentId}`)
-    //             }
-    //             else {
-    //                 toast.error(data.message || "Please try again")
-    //                 setLoading(false)
-    //             }
-    //         },
-    //         onError: (data) => {
-    //             toast.error(data.message || "Please try again")
-    //             setLoading(false)
-    //         }
 
-    //     })
-    // }
     return (
         <div>
             <Dialog>
                 <DialogTrigger asChild>
                     <Button variant="view_item" className="" size={'lg'}>
-                        <BadgePlus />
+                        <CircleCheckBig />
                     </Button>
                 </DialogTrigger>
                 <DialogContent className=" ">
                     <DialogHeader>
                         <DialogTitle>{title}</DialogTitle>
                         <DialogDescription>
-                            {"Count: " + count + " "}
+                            {description}
                         </DialogDescription>
                     </DialogHeader>
-                    {/* {
-                        transaction.isAccounted && (
-                            <div className="border border-foreground rounded-md p-4 flex flex-col items-center justify-center gap-4">
-                                <Button
-                                    variant={'destructive'}
-                                    onClick={() => onRemoveClick(transaction.id)}
-                                    disabled={isLoading}
 
-                                >
-                                    <Trash2 />
-                                    Remove from Account
-                                </Button>
-                                <DialogDescription>
-                                    This action will remove the transaction from account and delete the invoice number.
-                                </DialogDescription>
-                            </div>
-                        )
-                    } */}
 
                     <form onSubmit={form.handleSubmit(onSubmit)} className="  w-full mx-auto" id="audit-tx-form">
                         <FieldGroup className=" bg-muted p-10 py-6 rounded-md border border-b-2 border-muted-foreground flex flex-col items-center justify-center gap-8">
