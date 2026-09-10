@@ -53,8 +53,9 @@ export const CyclesDashboard = () => {
             </Field>
 
             <div className="w-full flex flex-col md:flex-row items-start justify-center gap-8">
-                <RoutineLedgerDashboard date={date} />
                 <TaskLedgerDashboard date={date} />
+                <RoutineLedgerDashboard date={date} />
+
             </div>
 
         </div>
