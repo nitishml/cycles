@@ -21,19 +21,14 @@ export const TaskLedgerDashboard = ({ date }: Props) => {
     if (!query.data || !query.data.data) return <DataError />
     const data = query.data.data
 
-    // const result = countByTaskList(data.today, data.taskList);
-
-
-    // console.log(data.result)
     const open = data.result.filter((i) => i.status === "OPEN")
-
     const completed = data.result.filter((i) => i.status === "COMPLETE")
+
     return (
-        <div className="flex-1 space-y-8">
+        <div className="flex-1 w-full space-y-4">
             <InPageHeader label="Task Ledger" />
             <div className="flex flex-col items-center justify-center gap-4 border-2 border-cyan-500 rounded-md p-4">
                 {open.map((i) => (
-
                     <div key={i.taskId} className="w-full flex items-center justify-between border border-foreground rounded-sm px-4 py-2">
                         {i.title}
 
@@ -43,6 +38,7 @@ export const TaskLedgerDashboard = ({ date }: Props) => {
                                 title={i.title}
                                 description={i.description}
                                 deadline={i.deadline}
+                                remarks={i.remarks}
                             />
                             <div className="flex flex-col items-end justify-end">
                                 <p>{format(i.deadline, "hh:mm aa | dd/MM")}</p>

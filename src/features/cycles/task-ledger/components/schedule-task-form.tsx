@@ -56,6 +56,7 @@ export const ScheduleTaskDialog = ({
             taskId,
             // day: format(values.deadline, "yyyy-MM-dd"),
             deadline: values.deadline,
+            remarks: values.remarks
         }, {
             onSuccess: (data) => {
                 if (data.success && data.data) {
@@ -93,7 +94,7 @@ export const ScheduleTaskDialog = ({
 
 
                     <form onSubmit={form.handleSubmit(onSubmit)} className="  w-full mx-auto" id="audit-tx-form">
-                        <FieldGroup className=" bg-muted p-10 py-6 rounded-md border border-b-2 border-muted-foreground flex flex-col items-center justify-center gap-8">
+                        <FieldGroup className=" bg-muted p-4 md:p-8 rounded-md border border-b-2 border-muted-foreground flex flex-col items-center justify-center gap-8">
 
                             <div className="w-full">
                                 <Controller
@@ -132,7 +133,7 @@ export const ScheduleTaskDialog = ({
                                                             variant="outline"
                                                             aria-invalid={fieldState.invalid}
                                                             className={cn(
-                                                                "w-full h-14 pl-3 border-[#dcdcdc] rounded-xl text-left text-foreground font-normal",
+                                                                "w-full h-14  border-[#dcdcdc] rounded-xl text-left text-foreground font-normal",
                                                                 !field.value && "text-muted-foreground"
                                                             )}
                                                         >

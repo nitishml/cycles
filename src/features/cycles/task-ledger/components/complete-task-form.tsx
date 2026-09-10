@@ -24,18 +24,21 @@ import { BadgePlus, CalendarIcon, CircleCheckBig, Clock, } from "lucide-react";
 import { completeTaskFormSchema } from "../types";
 import { Textarea } from "@/components/ui/textarea";
 import { useCompleteTask } from "../hooks/use-complete-task";
+import { SoftDataDisplay } from "@/components/data-display-boxes";
 
 type Props = {
     id: string;
     title: string;
     description: string;
     deadline: Date;
+    remarks?: string | null;
 }
 export const CompleteTaskForm = ({
     id,
     title,
     description,
-    deadline
+    deadline,
+    remarks
 }: Props) => {
     const mutation = useCompleteTask()
     // const removeMutatiion = useRemoveTransaction()
@@ -74,8 +77,6 @@ export const CompleteTaskForm = ({
 
         })
     }
-
-
     return (
         <div>
             <Dialog>
@@ -91,10 +92,12 @@ export const CompleteTaskForm = ({
                             {description}
                         </DialogDescription>
                     </DialogHeader>
-
+                    <div className="">
+                        <SoftDataDisplay title="remarks" value={remarks} />
+                    </div>
 
                     <form onSubmit={form.handleSubmit(onSubmit)} className="  w-full mx-auto" id="audit-tx-form">
-                        <FieldGroup className=" bg-muted p-10 py-6 rounded-md border border-b-2 border-muted-foreground flex flex-col items-center justify-center gap-8">
+                        <FieldGroup className=" bg-muted p-4 md:p-8 rounded-md border border-b-2 border-muted-foreground flex flex-col items-center justify-center gap-8">
 
                             <div className="w-full">
                                 <Controller
