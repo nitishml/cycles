@@ -11,11 +11,22 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { Field, FieldLabel } from "@/components/ui/field"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import { useState } from "react"
+import { Ellipsis } from "lucide-react"
+import Link from "next/link"
 
 export const Dashboard = () => {
-    const date = format(new Date(), "yyyy-MM-dd")
+    const [date, setDate] = useState<Date>(new Date())
     const query = useGetDailyLedger({
-        day: date
+        day: format(date, "yyyy-MM-dd")
     })
 
     const isDisabled = query.isLoading || query.isPending || query.isFetching
@@ -38,6 +49,31 @@ export const Dashboard = () => {
                         <span>{format(new Date(), "EEEE, do MMMM yyyy")}</span>
                     </div>
                 </div>
+                <Field className="w-[300px] mx-auto">
+                    <FieldLabel htmlFor="date-picker-simple">Choose Date</FieldLabel>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button
+                                variant="outline"
+                                id="date-picker-simple"
+                                className="justify-start font-normal"
+                            >
+                                {date ? format(date, "PPP") : <span>Set Starting Date</span>}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="min-w-[300px] w-full p-0" align="start">
+                            <Calendar
+                                mode="single"
+                                selected={date}
+                                onSelect={setDate}
+                                defaultMonth={date}
+                                captionLayout="dropdown"
+                                required
+                                className="w-full"
+                            />
+                        </PopoverContent>
+                    </Popover>
+                </Field>
                 <div className="w-full flex flex-col md:flex-row items-start justify-center gap-4">
                     <div className="flex-1 border rounded-md shadow w-full">
                         <Table className="w-full">
@@ -46,6 +82,7 @@ export const Dashboard = () => {
                                 <TableRow>
                                     <TableHead>Task</TableHead>
                                     <TableHead className="w-[100px]">Deadline</TableHead>
+
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -73,7 +110,7 @@ export const Dashboard = () => {
                                 <TableRow>
                                     <TableHead className="w-[100px]">Time</TableHead>
                                     <TableHead>Routine</TableHead>
-                                    {/* <TableHead>Frequency</TableHead> */}
+                                    <TableHead className="w-[25px]">...</TableHead>
 
                                 </TableRow>
                             </TableHeader>
@@ -84,7 +121,7 @@ export const Dashboard = () => {
                                         className="">
                                         <TableCell className="font-medium">{format(i.completedAt, "hh:mm aa")}</TableCell>
                                         <TableCell>{i.title}</TableCell>
-                                        {/* <TableCell>{i.frequency}</TableCell> */}
+                                        <TableCell><Link href={`/cycles/routine/manage/${i.id}`}><Ellipsis /></Link></TableCell>
                                     </TableRow>
                                 ))}
                                 {/* <TableRow>
