@@ -18,11 +18,6 @@ import { RoutineLedgerDashboard } from "../routine-ledger/components/dashboard"
 export const CyclesDashboard = () => {
     const [date, setDate] = useState<Date>(new Date())
 
-
-    // const result = countByTaskList(data.today, data.taskList);
-
-
-    // console.log(data.result)
     return (
         <div className="w-full space-y-8">
 
